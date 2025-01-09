@@ -2,84 +2,96 @@
 <html>
     <head>
         <title>
-            First project
+            Url Redirector
         </title>
-        <link rel="icon" type="image/ico" href="pictures/favicon.ico">
+        </head>
+        <style>
+            body {
+                margin: 0;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background: linear-gradient(45deg, #ff6b6b, #ffa07a, #f0e68c, #98fb98, #8c52ff, #ff6b6b);
+                background-size: 400% 400%;
+                animation: gradientAnimation 15s ease infinite;
+                font-family: 'Arial', sans-serif;
+                color: rgba(0, 0, 0, 0.7);
+            }
+
+            @keyframes gradientAnimation {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+
+            h1 {
+                font-size: 4em;
+                margin: 0;
+                padding: 0;
+                color: rgba(0, 0, 0, 0.9);
+            }
+
+            .input-container {
+                margin-top: 20px;
+                width: 100%;
+                max-width: 400px;
+                position: relative;
+            }
+
+            .input-container input {
+                width: 100%;
+                padding: 15px;
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                border-radius: 10px;
+                font-size: 1em;
+                box-sizing: border-box;
+                outline: none;
+                background: rgba(0, 0, 0, 0.3);
+                transition: box-shadow 0.3s ease-in-out;
+                color: #fff;
+                text-align: center;
+            }
+
+            .input-container input::placeholder {
+                color: rgba(255, 255, 255, 0.6);
+                text-align: center;
+            }
+
+            .input-container input:focus {
+                box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.5);
+            }
+        </style>
     </head>
-
     <body>
+        <h1>Url Redirector</h1>
+        <div class="input-container">
+            <input type="text" id="urlInput" placeholder="Type your URL here">
+        </div>
+        <script>
+            document.getElementById('urlInput').addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    let url = event.target.value.trim();
+                    const hasTld = url.includes('.');
+                    const hasHttp = url.startsWith('http://') || url.startsWith('https://');
+                    const hasWww = url.startsWith('www.');
 
-        <h1>
-            My first project
-        </h1>
-
-        <br>
-
-        <h2>
-            My first project
-        </h2>
-
-        <br/>
-        <h3>
-            My first project
-        </h3>
-        <h4>
-            My first project
-        </h4>
-        <h5>
-            My first project
-        </h5>
-        <h6>
-            My first project
-        </h6>
-        <br/>
-        <hr>
-        <pre>
-            This my first project
-            This contains everything I've learned about html/css
-        </pre>
-        <p>
-            This is audio, video, hyperlink, and picture demostration
-        </p>
-        <p>This is normal text</p>
-        <p>This is <b>bold</b> text</p>
-        <p>This is <i>italic</i> text</p>
-        <p>This is <u>underlined</u> text</p>
-        <p>This is <del>deleted</del>  text</p>
-        <p>This is <big>big</big> text</p>
-        <p>This is <small>small</small> text</p>
-        <p>This is <sub>subscript</sub> text</p>
-        <p>This is <sup>superscript</sup> text</p>
-        <p>This is <tt>monospaced</tt> text</p>
-        <p>This is <mark style="background-color:lightgreen">highlighted</mark> text</p>
-        <br>
-
-        <a href="https://www.youtube.com/watch?v=HGTJBPNC-Gw&t=2060s"
-        target="_blank"
-        title="Goes to video">
-            Click me
-        </a>
-        <br>
-        <a>
-        <img src="pictures/Image.png"
-        alt=""This is a picture"
-        width="900">
-        </a>
-        <br>
-        <a>
-        <video src="videos/tea.mp4" height="500" controls muted loop autoplay>
-        </video>
-        </a>
-        <br>
-        <a> 
-            <audio controls autoplay muted loop alt="This is Nature">
-            <source src="audio/Nature.mp3"
-            src="audio/Nature.wav">
-            
-            </audio>
-        </a>
-        <h1><span style="background-color:tomato">This is a span title</span></h1>
-        <h1><div style="background-color:teal">This is a div title</div></h1>
-        <p><span style="background-color:tomato">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ratione tenetur aut doloribus, ducimus dicta incidunt pariatur qui hic vero consequuntur? Animi eaque eveniet saepe esse, laborum illum facere ad.</span></p>
-        <p><div style="background-color:teal">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem ratione tenetur aut doloribus, ducimus dicta incidunt pariatur qui hic vero consequuntur? Animi eaque eveniet saepe esse, laborum illum facere ad.</div></p>    </body>
+                    if (hasTld && !hasHttp && !hasWww) {
+                        url = 'https://' + url;
+                    } else if (!hasTld) {
+                        url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+                    }
+                    
+                    window.location.href = url;
+                }
+            });
+        </script>
+    </body>
 </html>
